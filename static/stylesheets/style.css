@@ -1,6 +1,7 @@
 * {
 	margin: 0;
 	padding: 0;
+	font-family: Verdana, Geneva, sans-serif;
 }
 
 body {
@@ -91,6 +92,7 @@ input {
 #footer {
 	height: 100px;
 	margin-top: 10px;
+	font-size: x-small;
 	/*background: #BFF08E;*/
 }
 
@@ -124,28 +126,52 @@ input {
 }
 
 #gamedatadiv {
+	font-size: 12px;
 	padding: 10px;
 	display: table;
 }
 #gamedatatextdiv {
+	padding-right: 5px;
 	display: table-cell;
 	width: 127px;
 }
 
-#wordtextdiv {
-	font-size: medium;
+#gamedatabuttondiv {
 	display: table-cell;
-	width: 150px;
+	width: 125px;
 }
 
 #worddiv {
 	display: table;
 }
 
-#gamedatabuttondiv {
-	width: 150px;
+#wordtextdiv {
+	font-size: 12px;
+	display: table-cell;
+	width: 102px;
+	text-align: left;
+	padding-right: 5px;
 }
 
+#wordtextentrydiv {
+	display: table-cell;
+	width: 125px;
+	padding-right: 5px;
+}
+
+
+#submit {
+	-webkit-appearance: push-button;
+	-webkit-border-image: none;
+	-webkit-box-align: center;
+	-webkit-rtl-ordering: logical;
+	-webkit-user-select: text;
+	font-size: 14px;
+	position: absolute;
+	bottom: 0;
+	display: table-cell;
+	float: right;
+}
 .answer {
 	color: #FF0000;
 }
