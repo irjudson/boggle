@@ -1,7 +1,7 @@
 application: irj-boggle
 version: 1
 runtime: python27
-api_version: 1
+api_version: all-js
 threadsafe: true
 
 libraries:
