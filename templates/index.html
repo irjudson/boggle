@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>Boggle!</title>
+	<meta name="keywords" content="boggle" />
+	<meta name="description" content="a boggle game on the web!" />
+	<link rel="stylesheet" href="/stylesheets/style.css" type="text/css" media="screen, projection"/>
+	<!--[if lte IE 6]><link rel="stylesheet" href="/stylesheets/style_ie.css" type="text/css" media="screen, projection" /><![endif]-->
+	<script language="javascript" type="text/javascript"> 
+		dojoConfig = {
+			has: {
+				"dojo-firebug" : true
+			},
+			parseOnLoad: true,
+			async: true
+		}
+	</script>
+	<script src="//ajax.googleapis.com/ajax/libs/dojo/1.8.1/dojo/dojo.js"></script>
+	<script language="javascript" type="text/javascript"> 
+
+		require(["dojo/dom", "dojo/ready", "dojo/parser", "dijit/registry", "dojo/on", "dijit/form/Form", "dijit/form/TextBox", "dijit/form/Button"],
+			function(dom, ready, parser, registry, on, Form, TextBox, Button) {
+				ready(function() {
+					parser.parse();
+					var game_data = registry.byId("gamedata");
+					on(game_data, "change", function(){
+						makeGrid("game_table", game_data.get('value'));
+					});
+					makeGrid("game_table", "");		
+				});
+			});
+
+		require(["dojo/dom", "dojo/on", "dojo/request", "dojo/dom-form"], 
+			function(dom, on, request, domForm){
+				var form = dom.byId("boggle");
+				on(form, "submit", function(evt) {
+					evt.stopPropagation();
+					evt.preventDefault();
+
+					request.post("solve", {
+						query: {
+							gamedata: dom.byId("gamedata").value,
+							word: dom.byId("word").value
+						},
+						handleAs: "JSON"
+					}).then(
+						function(text){
+							var message = "Solutions found are: " + JSON.stringify(text);
+							dom.byId("footer").innerHTML = message;
+							console.log(message);
+						},
+						function(error){
+							var message = "An error occured: " + error;
+							dom.byId("footer").innerHTML = message;
+							console.log(message);
+					});
+				});
+			});
+
+		function makeGrid(name, data) {
+			if (typeof(data)==='undefined') data = "";
+			for (var i = data.length; i < 16; i++) {
+				data += ' ';
+			};
+			var element = document.getElementById(name);
+			var table = "<table id='game_table_data'><tr id='game_table_data_row' class='game_table_data_row'>";
+			for (var i = 0; i < data.length; i++) {
+				if (i % 4 == 0 && i != 0) {
+					table += "</tr><tr id='game_table_data_row' class='game_table_data_row'>"
+				}
+				a = Math.floor(i / 4);
+				b = i % 4;
+				name = 'game_table_data_cell_'+a+'_'+b;
+				table += "<td id="+name+" class='game_table_data_cell'>" + data[i] + "</td>";
+			};
+			table += "</table>";
+			element.innerHTML = table;
+		}
+
+		function randomString(name) {
+			var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			var string_length = 16;
+			var randomstring = '';
+			var tb = require("dijit/form/TextBox");
+			var registry = require("dijit/registry");
+			var e = registry.byId(name);
+			for (var i=0; i<string_length; i++) {
+				var rnum = Math.floor(Math.random() * chars.length);
+				randomstring += chars.substring(rnum,rnum+1);
+			}
+			e.set('value', randomstring);
+		}
+	</script>
+</head>
+	<body>
+		<div id="wrapper">
+			<div id="header">
+				<div id="Greeting">
+					<h1>Welcome to Boggle!</h1>
+				</div>
+				<div id="Login">
+					You are logged in as: {{ user }}<br/>
+					<a href="{{ url }}">{{ url_linktext }}</a>
+				</div>
+			</div>
+			<div id="middle">
+				<div id="container">
+					<div id="content">
+					<form id="boggle">
+						<div id="game_table"></div>
+<!-- 						<div id="gamedatacontrols">
+ -->							<input data-dojo-type="dijit/form/TextBox" data-dojo-props="intermediateChanges:true, uppercase:true" id="gamedata" value="" maxlength="16" name="gamedata">
+							<input type="button" id="gamedatabutton" value="Create Random Game" onClick="randomString('gamedata');">
+<!-- 						</div>
+						<br/>
+						<div id="inputwordcontrols">
+ -->							<input data-dojo-type="dijit/form/TextBox" data-dojo-props="intermediateChanges:true, uppercase:true" id="word" value="" maxlength="16" name="word">
+
+							<input type="button" id="wordbutton" value="Create Random Word" onClick="randomString('word');">
+<!-- 						</div>
+						<br/>
+ -->						<button type="submit">Solve</button>
+					</form>
+					</div>
+				</div>
+
+				<div class="sidebar" id="sideLeft">
+				</div>
+
+				<div class="sidebar" id="sideRight">
+				</div>
+			</div>
+			<div id="footer">
+			</div>
+		</div>
+	</body>
+</html>
