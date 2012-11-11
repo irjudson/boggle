@@ -27,17 +27,15 @@ input {
 }
 #wrapper {
 	width: 100%;
-	min-width: 800px;
+	min-width: 500px;
 }
 
 
 /* Header
 -----------------------------------------------------------------------------*/
 #header {
-	height: 50px;
-	padding: 5px;
-	margin: 5px;
-	/*background: #FFE680;*/
+	height: 75px;
+	margin-top: 10px;
 }
 
 
@@ -61,7 +59,7 @@ input {
 	overflow: hidden;
 }
 #content {
-	padding: 0 270px 0 270px;
+	padding: 0;
 }
 
 
@@ -92,22 +90,17 @@ input {
 -----------------------------------------------------------------------------*/
 #footer {
 	height: 100px;
+	margin-top: 10px;
 	/*background: #BFF08E;*/
 }
 
 /* Customizations 
 ---------------------------------------------------------------------------*/
 
-#Greeting {
-	width: 50%;
-	float: left;
-}
-
-#Login {
-	font-size: small;
-	width: 50%;
-	float: right;
-	text-align: right;
+#boggle {
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
 }
 
 #game_table_data {
@@ -116,7 +109,7 @@ input {
 	border-radius: 5px;
 }
 
-#game_table_data_row, #game_table_data_cell {
+.game_table_data_row, .game_table_data_cell {
 	width: 50px;
 	height: 50px;
 	font-family: Tahoma, Geneva, sans-serif;
@@ -127,7 +120,34 @@ input {
 	background-color: #FEFEF2;
 	border-radius: 10px;
 	padding: 0;
-	margin: 0;
+	margin: 2px;
+}
+
+#gamedatadiv {
+	padding: 10px;
+	display: table;
+}
+#gamedatatextdiv {
+	display: table-cell;
+	width: 125px;
+}
+
+#wordtextdiv {
+	font-size: medium;
+	display: table-cell;
+	width: 150px;
+}
+
+#worddiv {
+	display: table;
+}
+
+#gamedatabuttondiv {
+	width: 150px;
+}
+
+.answer {
+	color: #FF0000;
 }
 
 .dijitValidationIcon { display:none !important; }

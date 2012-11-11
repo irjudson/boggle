@@ -4,15 +4,15 @@
 #
 import os
 import webapp2
-from handlers import MainPage
+from handlers import App
 
 # Grab the debug value based on location (dev_appserver => True, appengine => False)
 debug = os.environ.get('SERVER_SOFTWARE', '').startswith('Dev')
 
 # Route table pulled out to make things cleaner
 routes = [
-	(r'/', MainPage),
-	(r'/solve', MainPage)
+	(r'/', App),
+	(r'/solve', App)
 ]
 
 # Create the WSGIApplication, hand it routes and debug, later we can sort out the config
